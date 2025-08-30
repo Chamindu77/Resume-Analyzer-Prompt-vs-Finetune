@@ -1,0 +1,229 @@
+
+        <html>
+        <head>
+            <title>Resume Analysis Report</title>
+        </head>
+        <body style="font-family:Arial,sans-serif; line-height:1.5;">
+            <h2>Resume Analysis for: AI ML engieer</h2>
+
+            <h3>Resume vs Job Description Categories</h3>
+            <pre>Okay, I'm ready to analyze the resume you provided using the provided Python code and job description placeholder. I will focus on providing actionable feedback.
+
+Here's how I'll approach the task:
+
+1.  **Execute the Code:** I will run the Python code you provided. This code leverages the `google.generativeai` library (Gemini model) to analyze the resume against a (currently empty) job description.
+2.  **Analyze the Output:** The code generates an HTML report, which I will then carefully examine.  I will pay close attention to these sections:
+    *   **Categories:** How well the model parsed the resume into sections (Education, Skills, Projects, etc.).
+    *   **Match Score:** The overall percentage match.
+    *   **Matching & Missing Skills:**  This is CRUCIAL. It will highlight the keywords the model identified as present or absent.
+    *   **Recommendations:**  The model's suggestions for improvement.
+    *   **ATS Optimization Score:** This is important for understanding how well the resume might pass through automated systems.
+3.  **Provide Expert Feedback:** Based on the report, I will provide *specific, actionable* advice, going beyond the model's suggestions. I will focus on:
+    *   **Content Alignment:** How to tailor the resume content to better align with the *implied* requirements of a typical AI/ML Engineer role, given the absence of a specific job description.
+    *   **Skills Emphasis:**  How to highlight the most relevant AI/ML skills and downplay less relevant ones.
+    *   **Project Presentation:** How to present projects to demonstrate impact and quantify results.
+    *   **ATS Optimization:** How to improve the resume's structure and formatting for better ATS compatibility.
+    *   **Overall Impression:**  The resume's strengths and weaknesses in making a compelling case for the candidate.
+4. **Caveats:**
+
+*   **No Specific Job Description:** Because you didn't provide a concrete job description, I will assume a general AI/ML Engineer profile.  The accuracy of the analysis will be limited by this. Provide a job description for a more precise analysis.
+*   **Gemini's Performance:** The quality of the analysis depends on the capabilities of the Gemini model.  It might make errors in parsing or matching. I will try to correct for these errors in my feedback.
+*   **"Final Year Undergraduate" Context:** I will keep in mind that the candidate is a final year student, so expectations for experience will be lower.
+
+**Let's begin!**
+
+I need you to execute the code first and share the content of the `resume_analysis_report.html` file.  Then, I will provide my expert analysis.
+</pre>
+
+            <h3>Match Score</h3>
+            <p>Okay, I'm ready to analyze the resume. Please provide the `job_description` variable so I can execute the code and provide a detailed analysis. I need the job description to effectively use the `analyze_resume` function.  Once you provide the `job_description`, I will:
+
+1.  **Run the `analyze_resume` function** with the given resume text and job description.
+2.  **Present the output:** I'll present the generated HTML report in a readable format, highlighting key sections like the categorized resume and job description elements, match score, skill matching analysis, recommendations, and ATS score.
+3.  **Provide High-Level Summary & Actionable Advice:**  Beyond the report, I will offer a concise summary of the resume's strengths and weaknesses, as well as targeted advice beyond what the script provides to make it even *stronger* for AI/ML Engineer roles.  This will incorporate my expert knowledge.
+
+**Example:**
+
+Let's say you provide the following `job_description`:
+
+```
+We are looking for a skilled AI/ML Engineer to develop and deploy machine learning models.
+
+Responsibilities:
+*   Design, develop, and deploy machine learning models.
+*   Work with large datasets to train and evaluate models.
+*   Implement machine learning algorithms and libraries (e.g., TensorFlow, PyTorch).
+*   Collaborate with cross-functional teams to integrate models into production systems.
+*   Monitor model performance and retrain as needed.
+*   Stay up-to-date with the latest advancements in AI/ML.
+
+Qualifications:
+*   Bachelor's or Master's degree in Computer Science, AI, or a related field.
+*   Experience with machine learning algorithms and libraries (TensorFlow, PyTorch).
+*   Proficiency in Python.
+*   Experience with data preprocessing and feature engineering.
+*   Strong problem-solving skills.
+*   Excellent communication and teamwork skills.
+```
+
+Then, I will run the code with this job description and the given resume.  Provide the `job_description` so I can proceed.
+</p>
+
+            <h3>Matching & Missing Skills</h3>
+            <pre>Okay, I'm ready to analyze the resume based on the provided code and instructions. To do this effectively, I need the actual job description.  Please provide the job description for the "AI ML Engineer" position so I can run the analysis.
+
+Once you provide the job description, I will:
+
+1.  **Run the Analysis:** I'll execute the `analyze_resume` function with the resume text you've already provided and the job description you'll provide. This will leverage the `gemini-2.0-flash-exp-image-generation` model (you'll need to ensure you have set up the `google.generativeai` library correctly and have an API key if required).
+2.  **Interpret the Output:** I'll receive the HTML report generated by the function.
+3.  **Provide a Comprehensive Summary:** I will then summarize the key findings from the report, including:
+
+    *   **Categorized Resume & Job Description Content:**  I'll present the extracted information about education, skills, projects, etc., for both the resume and the job description.
+    *   **Match Score:** I'll report the overall percentage match between the resume and the job description.
+    *   **Matching & Missing Skills:**  I'll detail the specific technical skills that align with the job description and the critical skills that are missing.
+    *   **Skills Match Visualization:** The number of matched and missing skills.
+    *   **Recommendations for Improvement:** I'll highlight the actionable suggestions for improving the resume, focusing on tailoring it to the specific job requirements.
+    *   **ATS Optimization Score:**  I'll report the ATS score and explain potential areas for improvement in terms of ATS compatibility.
+
+**Example of the analysis you will get:**
+
+**(Assuming a hypothetical Job Description)**
+
+**Hypothetical Job Description (Example):**
+
+```
+We are seeking an AI/ML Engineer to develop and deploy machine learning models for our product. The ideal candidate should have a Master's degree in Computer Science or a related field, with strong experience in Python, TensorFlow, PyTorch, and cloud platforms like AWS or Azure. Experience with NLP and RAG is a plus. Strong communication and problem-solving skills are essential.
+```
+
+**Analysis Output (Example - After running the code with the above JD):**
+
+```html
+<html>
+<head>
+    <title>Resume Analysis Report</title>
+</head>
+<body style="font-family:Arial,sans-serif; line-height:1.5;">
+    <h2>Resume Analysis for: AI ML Engineer</h2>
+
+    <h3>Resume vs Job Description Categories</h3>
+    <pre>RESUME:
+Education: B.Sc. Eng. (Hons) in Computer Engineering, University of Ruhuna (2020 - Present)
+Certificates: Machine Learning with Python (IBM), Learning MySQL Development (LinkedIn), Applied Machine Learning: Algorithms (LinkedIn), Effective Problem-Solving and Decision-Making (University of California), Introduction to TensorFlow for AI, Machine Learning, and Deep Learning (DeepLearning.AI )
+Technical Skills: Agentic AI, Deep learning framework (TensorFlow, PyTorch), Natural Language Processing, Full-Stack Web Development, Project Managment (Azure Devops, ClickUps), Mobile Application Development, Programming languages (Python, JS, C#, Kotlin), Cloud computing (AWS), Databases Management (MongoDB, MySQL, PostgreSQL, Firebase), Version Control (GitHub, Azure Devops)
+Soft Skills: Motivated, Committed to continuous learning, Problem-solving
+Projects:
+- Autonomous Blog Generator from YouTube: Developed an autonomous agent system using CrewAI and GPT-3.5 turbo to extract and summarize YouTube video content into structured blog posts.
+- Autonomous Tech Blog Generation: Built an autonomous multi-agent system using CrewAI and Gemini (Google’s LLM) to research and write blog articles on technology topics.
+- PDF-Based Conversational Guidance Agent: Developed an AI powered document question answering system that allows users to chat with a virtual agent for guidance based on uploaded PDF content.
+- Sri Lanka House Price Prediction: Led the development of a machine learning model to predict house prices in Sri Lanka.
+- Customer Churn Prediction: Developed a project to predict customer churn using machine learning techniques.
+- Traffic Sign Recognition: Developed a traffic sign recognition project which leverages the power of deep learning and computer vision techniques.
+- AgriMart Bot - AI Powered Chatbot: Developed AgriMartBot, an AI-powered chatbot to assist users with agriculture and farming inquiries.
+- Self Driving Simulation: Developed a project for simulating a self-driving car using deep learning techniques.
+- BERT Bot : AI-Powered Conversational Assistant: Developed an AI-powered chatbot for natural language understanding.
+- Anti Spoofing / Liveliness Detector: Created an application focused on detecting real or spoofed faces.
+- Sweden Household Debt: Led an analytical project to examine and visualize Sweden's household debt as a percentage of GDP.
+- Titanic: Machine Learning from Disaster: Developed a machine learning model to predict passenger survival on the Titanic.
+
+JOB DESCRIPTION:
+Education: Master's degree in Computer Science or related field (Inferred)
+Certificates: N/A
+Technical Skills: Python, TensorFlow, PyTorch, AWS or Azure, NLP, RAG
+Soft Skills: Communication, Problem-solving
+Projects: Developing and deploying machine learning models
+</pre>
+
+    <h3>Match Score</h3>
+    <p>78%</p>
+
+    <h3>Matching & Missing Skills</h3>
+    <pre>- Match Count: `7/9`
+- ✅ Matching Skills: Python, TensorFlow, PyTorch, Natural Language Processing, Databases Management, Version Control, Cloud computing
+- Miss Count: `2/9`
+- ❌ Missing Skills: RAG, Communication
+</pre>
+
+    <h3>Skills Match Visualization</h3>
+    <div style="width: 300px; border: 1px solid #ccc; height: 25px; border-radius: 5px; overflow: hidden;">
+        <div style="width: 77%; background-color: #4CAF50; height: 100%; float: left;"></div>
+        <div style="width: 23%; background-color: #F44336; height: 100%; float: left;"></div>
+    </div>
+    <p>✅ Matched: 7 | ❌ Missing: 2</p>
+
+    <h3>Recommendations for Improvement</h3>
+    <pre>1.  Explicitly mention "RAG" experience, even if it's part of another project or skill.
+2.  Highlight communication skills with specific examples (e.g., "Presented project findings to stakeholders," "Collaborated with a team of 5 engineers").
+3. Tailor your project descriptions to more closely align with the job description's focus on "developing and deploying machine learning models."  Emphasize the deployment aspects of your projects.</pre>
+
+    <h3>ATS Optimization Score</h3>
+    <pre>85%
+- Use more keywords from the job description in your resume.
+- Use standard section headings like "Skills" and "Experience."
+- Ensure your resume is easily readable by ATS (avoid tables and images).</pre>
+</body>
+</html>
+```
+
+**Key Takeaways from Example:**
+
+*   **The candidate possesses a strong technical foundation.** The resume highlights experience with Python, TensorFlow, and PyTorch, which are core requirements.
+*   **Missing "RAG" skill:** Explicitly mentioning Retrieval Augmented Generation (RAG) is crucial, as it's listed as a desired skill. Even if it's covered under NLP, it's important to call it out directly.
+*   **Soft Skills:** The resume needs to demonstrate communication skills. The candidate should provide specific examples of how they've communicated technical information effectively.
+*   **Project Tailoring:** The project descriptions should be tweaked to better align with the "developing and deploying" aspect of ML models, highlighting any experience with model deployment.
+
+**Now, please provide the actual job description for the most accurate analysis.**
+</pre>
+
+            <h3>Skills Match Visualization</h3>
+            <div style="width: 300px; border: 1px solid #ccc; height: 25px; border-radius: 5px; overflow: hidden;">
+                <div style="width: 77%; background-color: #4CAF50; height: 100%; float: left;"></div>
+                <div style="width: 23%; background-color: #F44336; height: 100%; float: left;"></div>
+            </div>
+            <p>✅ Matched: 7 | ❌ Missing: 2</p>
+
+            <h3>Recommendations for Improvement</h3>
+            <pre>Okay, I'm ready to analyze the resume. To do this effectively, I need the job description you want to compare the resume against. Please provide the job description, and I will then run the analysis using the code you provided and give you the HTML report.
+</pre>
+
+            <h3>ATS Optimization Score</h3>
+            <pre>Okay, I'm ready to analyze the resume you provided. I'll use the provided function with the Gemini model to generate a detailed report.  Before I run the code, I need the `job_description` and `job_title` as input to the `analyze_resume` function.  Please provide those.
+
+However, let me give you a high-level overview of what I expect to see *before* I run the code, based *only* on the resume you provided:
+
+**Strengths of the Resume (Before Analysis):**
+
+*   **Relevant Projects:** The candidate has a good number of projects showcasing AI/ML skills, especially in areas like autonomous agents, NLP, and computer vision.  The descriptions are reasonably detailed, listing technologies used.
+*   **Technical Skills:**  A wide range of technical skills are listed, covering relevant areas like deep learning, NLP, full-stack development, and cloud computing.
+*   **Internship Experience:** The full-stack development internship provides valuable practical experience.
+*   **Education:**  The candidate is pursuing a relevant degree in Computer Engineering.
+*   **Extracurriculars:** These activities show well-roundedness and leadership.
+
+**Potential Weaknesses and Areas for Improvement (Before Analysis):**
+
+*   **Formatting and Readability:** The resume's formatting is a bit clunky and could be improved for better readability.  There are some inconsistencies in capitalization and spacing.  The use of bolding and section headers could be more consistent. This will directly impact ATS score
+*   **Quantifiable Achievements:**  While projects are described, the impact of the projects isn't quantified.  For example, "Improved prediction accuracy" in the Titanic project is good, but "Improved prediction accuracy by 15% using..." would be better.
+*   **Resume Length:** It's not overly long, but ensure everything included is highly relevant to the target jobs.
+*   **Summary:**  The summary is generic. It should be tailored to the specific "AI/ML Engineer" role.
+*   **Lack of focus:** Resume has various projects. Focus on the projects that are closely related to the job description.
+
+**How I'll Use the Job Description:**
+
+Once you provide the job description, I'll use the code to:
+
+1.  **Identify Key Skills and Requirements:** Extract the essential skills, experience, and qualifications the employer is looking for.
+2.  **Match Resume to Requirements:** Compare the candidate's skills and experience against the job description.
+3.  **Calculate a Match Score:**  Provide a percentage score reflecting how well the resume aligns with the job.
+4.  **Highlight Missing Skills:**  Identify any critical skills or experience mentioned in the job description that are not evident in the resume.
+5.  **Provide Tailored Recommendations:**  Offer specific suggestions on how to improve the resume to better target the "AI/ML Engineer" position.  This will include:
+
+    *   **Tailoring the Summary:** Rewriting the summary to highlight relevant skills and experience.
+    *   **Quantifying Achievements:** Suggesting ways to quantify the impact of projects and experiences.
+    *   **Prioritizing Skills:**  Emphasizing the most important skills and downplaying less relevant ones.
+    *   **Addressing Gaps:**  Suggesting ways to address any significant skill gaps identified.
+    *   **ATS Optimization:** Checking for keywords in the resume.
+
+Once you provide the job description, I will run the code and provide you with the generated `resume_analysis_report.html` file.
+</pre>
+        </body>
+        </html>
+        

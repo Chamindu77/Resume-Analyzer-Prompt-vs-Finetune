@@ -1,0 +1,9 @@
+body {
+  font-family: 'Segoe UI', sans-serif;
+}
+.section-header {
+  padding: 10px 15px;
+  border-left: 4px solid #4361ee;
+  margin-bottom: 15px;
+  font-weight: bold;
+}
