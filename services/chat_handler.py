@@ -2,17 +2,17 @@ import streamlit as st
 from services.resume_generator import generate_sample_resume
 import google.generativeai as genai
 
-def handle_chat_message(message, resume_text, job_title, job_description, analysis_result):
+def handle_chat_message(message, resume, job_title, job_description, analysis_result):
     if any(kw in message.lower() for kw in ["generate resume", "optimized resume", "sample resume"]):
         st.info("Generating optimized resume...")
-        return generate_sample_resume(resume_text, job_title, job_description, analysis_result)
+        return generate_sample_resume(resume, job_title, job_description, analysis_result)
 
     model = genai.GenerativeModel('gemini-2.0-flash-exp-image-generation')
     prompt = f"""
 You are a helpful resume coach. Based on the following:
 
 RESUME:
-{resume_text}
+{resume}
 
 JOB TITLE:
 {job_title}
@@ -41,7 +41,7 @@ def submit_message():
         with st.spinner("Thinking..."):
             reply = handle_chat_message(
                 user_message,
-                st.session_state.resume_text,
+                st.session_state.resume,
                 st.session_state.job_title,
                 st.session_state.job_description,
                 st.session_state.analysis_result

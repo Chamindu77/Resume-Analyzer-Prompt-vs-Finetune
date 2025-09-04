@@ -34,8 +34,8 @@
 # # Initialize additional session state variables
 # if 'user_input' not in st.session_state:
 #     st.session_state.user_input = ""
-# if 'resume_text' not in st.session_state:
-#     st.session_state.resume_text = ""
+# if 'resume' not in st.session_state:
+#     st.session_state.resume = ""
 # if 'job_title' not in st.session_state:
 #     st.session_state.job_title = ""
 # if 'job_description' not in st.session_state:
@@ -182,7 +182,7 @@
 #         return False
 
 # # Function to analyze resume
-# def analyze_resume(resume_text, job_title, job_description):
+# def analyze_resume(resume, job_title, job_description):
 #     model = genai.GenerativeModel('gemini-2.0-flash-exp-image-generation')
     
 #     prompt = f"""
@@ -192,7 +192,7 @@
 #     {job_description}
     
 #     RESUME:
-#     {resume_text}
+#     {resume}
     
 #     Provide a comprehensive analysis of the resume compared to the job requirements. Structure your analysis as follows:
     
@@ -218,7 +218,7 @@
 #         return f"Error analyzing resume: {e}"
 
 # # Function to ask questions about the resume
-# def ask_question_about_resume(resume_text, job_title, job_description, question):
+# def ask_question_about_resume(resume, job_title, job_description, question):
 #     model = genai.GenerativeModel('gemini-2.0-flash-exp-image-generation')
     
 #     prompt = f"""
@@ -228,7 +228,7 @@
 #     {job_description}
     
 #     RESUME:
-#     {resume_text}
+#     {resume}
     
 #     QUESTION: {question}
     
@@ -242,14 +242,14 @@
 #         return f"Error: {e}"
 
 # # Function to generate a sample optimized resume
-# def generate_sample_resume(resume_text, job_title, job_description, analysis_result):
+# def generate_sample_resume(resume, job_title, job_description, analysis_result):
 #     model = genai.GenerativeModel('gemini-2.0-flash-exp-image-generation')
     
 #     prompt = f"""
 #     Act as an expert resume writer. Based on the following information, create a sample optimized resume that would be highly suitable for the {job_title} position.
     
 #     ORIGINAL RESUME:
-#     {resume_text}
+#     {resume}
     
 #     JOB DESCRIPTION:
 #     {job_description}
@@ -274,11 +274,11 @@
 #         return f"Error generating sample resume: {e}"
 
 # # Function to handle chat messages
-# def handle_chat_message(message, resume_text, job_title, job_description, analysis_result):
+# def handle_chat_message(message, resume, job_title, job_description, analysis_result):
 #     # Check if it's a resume generation request
 #     if any(phrase in message.lower() for phrase in ["provide resume", "generate resume", "create resume", "sample resume", "optimized resume"]):
 #         st.info("Generating an optimized sample resume based on the analysis...")
-#         sample_resume = generate_sample_resume(resume_text, job_title, job_description, analysis_result)
+#         sample_resume = generate_sample_resume(resume, job_title, job_description, analysis_result)
 #         return "Here's a sample optimized resume based on our analysis. Use this as a template to improve your own resume:\n\n" + sample_resume
     
 #     # Regular chat response
@@ -287,7 +287,7 @@
 #     You are a helpful resume coach assistant. The user has received an analysis of their resume for a {job_title} position.
     
 #     RESUME CONTENT:
-#     {resume_text}
+#     {resume}
     
 #     JOB DESCRIPTION:
 #     {job_description}
@@ -317,7 +317,7 @@
 #         with st.spinner("Thinking..."):
 #             response_text = handle_chat_message(
 #                 user_message,
-#                 st.session_state.resume_text,
+#                 st.session_state.resume,
 #                 st.session_state.job_title,
 #                 st.session_state.job_description,
 #                 st.session_state.analysis_result
@@ -369,19 +369,19 @@
 #                 if uploaded_file is not None:
 #                     st.success("✅ Resume uploaded successfully!")
 #                     try:
-#                         resume_text = extract_text_from_pdf(uploaded_file)
-#                         st.session_state.resume_text = resume_text  # Store in session state
+#                         resume = extract_text_from_pdf(uploaded_file)
+#                         st.session_state.resume = resume  # Store in session state
 #                         with st.expander("🔍 Preview Extracted Text"):
-#                             st.text(resume_text[:500] + "..." if len(resume_text) > 500 else resume_text)
+#                             st.text(resume[:500] + "..." if len(resume) > 500 else resume)
 #                     except Exception as e:
 #                         st.error(f"Error extracting text from PDF: {e}")
-#                         resume_text = ""
-#                         st.session_state.resume_text = ""
+#                         resume = ""
+#                         st.session_state.resume = ""
 #                 else:
 #                     st.info("📁 Please upload your resume in PDF format")
-#                     resume_text = ""
-#                     if 'resume_text' not in st.session_state:
-#                         st.session_state.resume_text = ""
+#                     resume = ""
+#                     if 'resume' not in st.session_state:
+#                         st.session_state.resume = ""
 #                 st.markdown('</div>', unsafe_allow_html=True)
         
 #         with col2:
@@ -402,7 +402,7 @@
 #             analyze_button = st.button(
 #                 "🔍 Analyze Resume", 
 #                 key="analyze_btn", 
-#                 disabled=not (api_key and resume_text and job_title and job_description)
+#                 disabled=not (api_key and resume and job_title and job_description)
 #             )
         
 #         # Analysis section - always show if there's an analysis result
@@ -415,7 +415,7 @@
 #         # Process the analysis when button is clicked
 #         if analyze_button:
 #             with st.spinner("⏳ Analyzing your resume..."):
-#                 analysis = analyze_resume(resume_text, job_title, job_description)
+#                 analysis = analyze_resume(resume, job_title, job_description)
 #                 st.session_state.analysis_result = analysis
                 
 #                 # Show the analysis after it's done
@@ -467,7 +467,7 @@
     
 #     # Ask Questions Tab - With improved styling
 #     with tab2:
-#         if not st.session_state.resume_text:
+#         if not st.session_state.resume:
 #             st.info("📋 Please upload your resume in the 'Resume Analysis' tab first.")
 #         elif not st.session_state.job_title or not st.session_state.job_description:
 #             st.info("💼 Please enter job details in the 'Resume Analysis' tab first.")
@@ -486,7 +486,7 @@
                 
 #                 if ask_button:
 #                     with st.spinner("⏳ Thinking..."):
-#                         answer = ask_question_about_resume(st.session_state.resume_text, st.session_state.job_title, st.session_state.job_description, question)
+#                         answer = ask_question_about_resume(st.session_state.resume, st.session_state.job_title, st.session_state.job_description, question)
                     
 #                     st.markdown(section_header("💬 Answer", "✨"), unsafe_allow_html=True)
 #                     st.markdown('<div class="result-container">', unsafe_allow_html=True)

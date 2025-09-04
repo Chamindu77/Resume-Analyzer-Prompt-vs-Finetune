@@ -1,0 +1,112 @@
+.resume-upload-card {
+  background: #22223b;
+  color: #e0e0e0;
+  padding: 2rem;
+  border-radius: 1.2rem;
+  box-shadow: 0 2px 12px rgba(100, 125, 222, 0.18);
+  max-width: 400px;
+  margin: 2rem auto;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+input[type="file"] {
+  margin-bottom: 0.5rem;
+}
+.file-info {
+  font-size: 0.95rem;
+  color: #7ed6ff;
+}
+label {
+  font-weight: 500;
+  margin-top: 0.5rem;
+}
+select,
+textarea {
+  margin-top: 0.1rem;
+  border-radius: 0.5rem;
+  border: 1px solid #7ed6ff;
+  padding: 0.5rem;
+  background: #2e1a47;
+  color: #fff;
+}
+textarea {
+  min-height: 6.5em;
+  resize: vertical;
+}
+.analyze-btn {
+  background: linear-gradient(90deg, #7f53ac 0%, #647dee 100%);
+  color: #fff;
+  border: none;
+  border-radius: 2rem;
+  padding: 0.7rem 1.5rem;
+  font-size: 1.1rem;
+  margin-top: 1rem;
+  cursor: pointer;
+}
+select,
+textarea {
+  margin-top: 0.3rem;
+  border-radius: 0.5rem;
+  border: 1px solid #647dee;
+  padding: 0.5rem;
+  background: #23234a;
+  color: #e0e0e0;
+}
+.upload-dropzone {
+  background: #343450;
+  border: 2px dashed #7ed6ff;
+  border-radius: 1rem;
+  padding: 1.2rem 0.5rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  /* margin-bottom: 0.3rem; */
+  transition: border-color 0.2s;
+}
+.upload-dropzone:hover {
+  border-color: #4f2cc6;
+}
+.dropzone-label {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  cursor: pointer;
+}
+.upload-gif {
+  width: 60px;
+  height: 60px;
+  margin-bottom: 0.5rem;
+}
+.dropzone-text {
+  color: #7ed6ff;
+  font-size: 1.05rem;
+  font-weight: 500;
+  text-shadow: 0 2px 8px rgba(100, 125, 222, 0.18);
+}
+.file-info {
+  font-size: 0.8rem;
+  color: #858486;
+  margin-bottom: 0.2rem;
+  text-align: left;
+}
+label {
+  font-weight: 500;
+  margin-top: 0.5rem;
+  text-align: left;
+  display: block;
+}
+
+.analyze-btn {
+  background: linear-gradient(90deg, #7f53ac 0%, #647dee 100%);
+  color: #fff;
+  border: none;
+  border-radius: 2rem;
+  padding: 0.7rem 1.5rem;
+  font-size: 1.1rem;
+  margin-top: 1rem;
+  cursor: pointer;
+  box-shadow: 0 2px 8px rgba(100, 125, 222, 0.18);
+}

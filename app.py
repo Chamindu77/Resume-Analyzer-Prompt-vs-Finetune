@@ -1,88 +1,84 @@
-# app.py
-import streamlit as st
+from flask import Flask, request, jsonify, send_file
+from flask_cors import CORS
+from services import analyzer, gemini_analysis, resume_generator, vertex_analysis
 import os
-from dotenv import load_dotenv
+from werkzeug.utils import secure_filename
 
-from utils.pdf_extractor import extract_text_from_pdf
-from utils.ui_helpers import section_header, load_custom_css
-from services.gemini_config import configure_gemini
-from services.analyzer import analyze_resume, ask_question_about_resume
-from services.chat_handler import handle_chat_message, submit_message
+app = Flask(__name__)
+CORS(app, origins=["http://localhost:5173"])
+app.config['UPLOAD_FOLDER'] = 'uploads/'
+os.makedirs(app.config['UPLOAD_FOLDER'], exist_ok=True)
 
-# Load environment
-load_dotenv()
-GEMINI_API_KEY = os.getenv("GEMINI_API_KEY")
+# Upload resume
+@app.route('/upload', methods=['POST'])
+def upload_resume():
+    if 'file' not in request.files:
+        return jsonify({'error': 'No file part'}), 400
+    file = request.files['file']
+    if file.filename == '':
+        return jsonify({'error': 'No selected file'}), 400
+    filename = secure_filename(file.filename)
+    filepath = os.path.join(app.config['UPLOAD_FOLDER'], filename)
+    file.save(filepath)
+    return jsonify({'filename': filename, 'filepath': filepath}), 200
 
-st.set_page_config(
-    page_title="AI Resume Analyzer",
-    page_icon="📝",
-    layout="wide"
-)
+# Analyze resume
+@app.route('/analyze', methods=['POST'])
+def analyze_resume():
+    data = request.get_json()
+    resume_text = data.get('resume')
+    job_title = data.get('job_title')
+    job_description = data.get('job_description')
+    if not resume_text or not job_title or not job_description:
+        return jsonify({'error': 'Missing resume, job_title, or job_description'}), 400
+    result = gemini_analysis.gemini_analyze_resume(resume_text, job_title, job_description)
+    return jsonify(result), 200
 
-load_custom_css()
+# Get analysis report
+@app.route('/report', methods=['GET'])
+def get_report():
+    filename = request.args.get('filename')
+    report_path = f'resume_analysis_report.html'
+    if not os.path.exists(report_path):
+        return jsonify({'error': 'Report not found'}), 404
+    return send_file(report_path)
 
-# Initialize session state
-if 'chat_history' not in st.session_state:
-    st.session_state.chat_history = []
-if 'analysis_result' not in st.session_state:
-    st.session_state.analysis_result = ""
-if 'user_input' not in st.session_state:
-    st.session_state.user_input = ""
-if 'resume_text' not in st.session_state:
-    st.session_state.resume_text = ""
-if 'job_title' not in st.session_state:
-    st.session_state.job_title = ""
-if 'job_description' not in st.session_state:
-    st.session_state.job_description = ""
-
-# Load from .env
-if GEMINI_API_KEY and configure_gemini(GEMINI_API_KEY):
-    st.sidebar.success("Gemini API configured ✅")
-else:
-    st.sidebar.error("Failed to load Gemini API key ❌")
+# Get extracted keywords
+@app.route('/keywords', methods=['GET'])
+def get_keywords():
+    filename = request.args.get('filename')
+    keywords = analyzer.extract_keywords(filename)
+    return jsonify({'keywords': keywords}), 200
 
 
-# Tabs
-tab1, tab2 = st.tabs(["Resume Analysis", "Ask Questions"])
+# Get all scores (overall, keyword, ATS)
+@app.route('/scores', methods=['GET'])
+def get_scores():
+    filename = request.args.get('filename')
+    job_title = request.args.get('job_title')
+    job_description = request.args.get('job_description')
+    overall_score = analyzer.get_score(filename)
+    keyword_score = analyzer.get_keyword_match_score(filename, job_title, job_description)
+    ats_score = analyzer.get_ats_score(filename, job_title, job_description) if hasattr(analyzer, 'get_ats_score') else None
+    return jsonify({
+        'overall_score': overall_score,
+        'keyword_score': keyword_score,
+        'ats_score': ats_score
+    }), 200
 
-with tab1:
-    col1, col2 = st.columns(2)
-    with col1:
-        st.markdown(section_header("📄 Upload Your Resume", "📄"), unsafe_allow_html=True)
-        uploaded_file = st.file_uploader("Choose a PDF file", type="pdf")
-        if uploaded_file:
-            resume_text = extract_text_from_pdf(uploaded_file)
-            st.session_state.resume_text = resume_text
-            st.text_area("Extracted Text", resume_text[:1000], height=200)
-    with col2:
-        st.markdown(section_header("💼 Job Details", "📋"), unsafe_allow_html=True)
-        job_title = st.text_input("Job Title")
-        job_description = st.text_area("Job Description", height=200)
-        st.session_state.job_title = job_title
-        st.session_state.job_description = job_description
+# Get job requirements
+@app.route('/requirements', methods=['GET'])
+def get_requirements():
+    requirements = analyzer.get_requirements()
+    return jsonify({'requirements': requirements}), 200
 
-    if st.button("🔍 Analyze Resume") and all([GEMINI_API_KEY, resume_text, job_title, job_description]):
-        analysis = analyze_resume(resume_text, job_title, job_description)
-        st.session_state.analysis_result = analysis
+# Get previous scans
+@app.route('/previous', methods=['GET'])
+def get_previous_scans():
+    scans = analyzer.get_previous_scans()
+    return jsonify({'previous_scans': scans}), 200
 
-    if st.session_state.analysis_result:
-        st.markdown(section_header("📊 Analysis Results", "🌟"), unsafe_allow_html=True)
-        st.markdown(st.session_state.analysis_result)
-
-    
-
-with tab2:
-    if not st.session_state.resume_text or not st.session_state.job_title or not st.session_state.job_description:
-        st.info("Please upload resume and job info in the first tab")
-    else:
-        question = st.text_area("Ask your question")
-        if st.button("Get Answer"):
-            answer = ask_question_about_resume(
-                st.session_state.resume_text,
-                st.session_state.job_title,
-                st.session_state.job_description,
-                question
-            )
-            st.markdown(answer)
-
+if __name__ == '__main__':
+    app.run(debug=True)
+# app.py
 
