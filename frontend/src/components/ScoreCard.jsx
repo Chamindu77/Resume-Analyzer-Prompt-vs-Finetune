@@ -1,19 +1,16 @@
-
-import React from 'react';
-import './ScoreCard.css';
-
-
+import React from "react";
+import "./ScoreCard.css";
 
 // Reference image colors
 const gradients = {
-  overall: 'url(#overallGradient)', // pink to purple
-  requirements: 'url(#requirementsGradient)', // purple to blue
-  keywords: 'url(#keywordsGradient)', // blue to green
+  overall: "url(#overallGradient)", // pink to purple
+  requirements: "url(#requirementsGradient)", // purple to blue
+  keywords: "url(#keywordsGradient)", // blue to green
 };
 const amountColors = {
-  overall: '#ff4f7a',
-  requirements: '#7c5aff',
-  keywords: '#3ec6e0',
+  overall: "#ff4f7a",
+  requirements: "#7c5aff",
+  keywords: "#3ec6e0",
 };
 
 const PhiChart = ({ value, label, gradient }) => {
@@ -27,7 +24,11 @@ const PhiChart = ({ value, label, gradient }) => {
     <div className="phi-chart">
       <div className="phi-shadow-gray" />
       <div className="phi-shadow" />
-      <svg height={radius * 2} width={radius * 2} style={{ position: 'relative', zIndex: 2 }}>
+      <svg
+        height={radius * 2}
+        width={radius * 2}
+        style={{ position: "relative", zIndex: 2 }}
+      >
         <defs>
           <linearGradient id="overallGradient" x1="0" y1="0" x2="1" y2="1">
             <stop offset="0%" stopColor="#ff4f7a" />
@@ -52,7 +53,7 @@ const PhiChart = ({ value, label, gradient }) => {
           r={normalizedRadius}
           strokeDasharray={circumference}
           strokeDashoffset={0}
-          style={{ transform: 'rotate(-90deg)', transformOrigin: '50% 50%' }}
+          style={{ transform: "rotate(-90deg)", transformOrigin: "50% 50%" }}
         />
         {/* Filled arc */}
         <circle
@@ -65,7 +66,11 @@ const PhiChart = ({ value, label, gradient }) => {
           cx={radius}
           cy={radius}
           r={normalizedRadius}
-          style={{ transition: 'stroke-dashoffset 1s cubic-bezier(.6,.2,.1,1)', transform: 'rotate(-90deg)', transformOrigin: '50% 50%' }}
+          style={{
+            transition: "stroke-dashoffset 1s cubic-bezier(.6,.2,.1,1)",
+            transform: "rotate(-90deg)",
+            transformOrigin: "50% 50%",
+          }}
         />
         <text
           x="50%"
@@ -75,30 +80,53 @@ const PhiChart = ({ value, label, gradient }) => {
           fontSize="2rem"
           fontWeight="bold"
           fill="#fff"
-          style={{ filter: 'drop-shadow(0 2px 4px #23234a)' }}
+          style={{ filter: "drop-shadow(0 2px 4px #23234a)" }}
         >
           {value}%
         </text>
       </svg>
-  <div className="phi-label">{label}</div>
+      <div className="phi-label">{label}</div>
     </div>
   );
 };
 
-
-
-const ScoreCard = ({ overall, requirements, keywords, overallAmount, requirementsAmount, keywordsAmount }) => (
+const ScoreCard = ({
+  overall,
+  keywords,
+  ats,
+  overallAmount,
+  keywordsAmount,
+  atsAmount,
+}) => (
   <div className="score-card">
     <h3>Resume Score</h3>
     <div className="score-circles">
       {overall !== null && overall !== undefined && (
-        <PhiChart value={overall} label="Overall Score" gradient={gradients.overall} amount={overallAmount ? `${overallAmount}%` : ''} amountColor={amountColors.overall} />
-      )}
-      {requirements !== null && requirements !== undefined && (
-        <PhiChart value={requirements} label="Keywords Score" gradient={gradients.requirements} amount={requirementsAmount ? `${requirementsAmount}%` : ''} amountColor={amountColors.requirements} />
+        <PhiChart
+          value={overall}
+          label="Overall Score"
+          gradient={gradients.overall}
+          amount={overallAmount ? `${overallAmount}%` : ""}
+          amountColor={amountColors.overall}
+        />
       )}
       {keywords !== null && keywords !== undefined && (
-        <PhiChart value={keywords} label="ATS Score" gradient={gradients.keywords} amount={keywordsAmount ? `${keywordsAmount}%` : ''} amountColor={amountColors.keywords} />
+        <PhiChart
+          value={keywords}
+          label="Keywords Score"
+          gradient={gradients.requirements}
+          amount={keywordsAmount ? `${keywordsAmount}%` : ""}
+          amountColor={amountColors.requirements}
+        />
+      )}
+      {ats !== null && ats !== undefined && (
+        <PhiChart
+          value={ats}
+          label="ATS Score"
+          gradient={gradients.keywords}
+          amount={atsAmount ? `${atsAmount}%` : ""}
+          amountColor={amountColors.keywords}
+        />
       )}
     </div>
   </div>

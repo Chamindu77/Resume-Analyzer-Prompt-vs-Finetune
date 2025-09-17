@@ -1,30 +1,4 @@
-def get_ats_score(filename, job_title=None, job_description=None):
-    from utils.pdf_extractor import extract_text_from_pdf
-    with open(filename, 'rb') as f:
-        resume_text = extract_text_from_pdf(f)
-    if job_title is None:
-        job_title = os.getenv('DEFAULT_JOB_TITLE', 'Software Engineer')
-    if job_description is None:
-        job_description = os.getenv('DEFAULT_JOB_DESCRIPTION', 'N/A')
-    model = genai.GenerativeModel('gemini-2.0-flash-exp-image-generation')
-    prompt = f"""
-You are an expert resume analyst.
-Assess how well the resume is optimized for Applicant Tracking Systems (ATS).
-1. Provide an overall ATS optimization score as a **percentage** (e.g., `85%`). Do NOT add extra text before or after the score.
-JOB DESCRIPTION:
-{job_description}
-RESUME:
-{resume_text}
-"""
-    try:
-        response = model.generate_content(prompt)
-        import re
-        match = re.search(r'(\d{1,3})%', response.text)
-        if match:
-            return int(match.group(1))
-        return 0
-    except Exception as e:
-        return 0
+
 import google.generativeai as genai
 import os
 import json
