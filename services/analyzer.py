@@ -1,4 +1,8 @@
+
 import google.generativeai as genai
+import os
+import json
+from utils.pdf_extractor import extract_text_from_pdf
 
 
 def analyze_resume(resume_text, job_title, job_description):
@@ -21,8 +25,8 @@ RESUME:
     # Define modular prompts
     match_score_prompt = shared_prompt_prefix + """
 1. Match Score:
-Provide only a numeric percentage indicating how well the resume matches the job description. 
-Format: `85%` (no other text).
+Provide only a numeric percentage indicating how well the resume matches the job description.
+Format: [numeric percentage only, e.g. 68%] (no other text).
 """
 
     matching_keywords_prompt = shared_prompt_prefix + """
@@ -118,66 +122,94 @@ Please provide a clear and helpful answer based on the analysis.
 
 
 
+def extract_keywords(filename):
+    # Extract text from PDF
+    with open(filename, 'rb') as f:
+        resume_text = extract_text_from_pdf(f)
+    model = genai.GenerativeModel('gemini-2.0-flash-exp-image-generation')
+    prompt = f"""
+You are an expert resume analyst.
+Extract only the technical keywords, programming languages, libraries, frameworks, tools, and platforms from the following resume:
+{resume_text}
+Return as a JSON array.
+"""
+    try:
+        response = model.generate_content(prompt)
+        keywords = json.loads(response.text)
+        return keywords
+    except Exception as e:
+        return [f"Error: {e}"]
 
+def get_score(filename):
+    with open(filename, 'rb') as f:
+        resume_text = extract_text_from_pdf(f)
+    job_title = os.getenv('DEFAULT_JOB_TITLE', 'Software Engineer')
+    job_description = os.getenv('DEFAULT_JOB_DESCRIPTION', 'N/A')
+    model = genai.GenerativeModel('gemini-2.0-flash-exp-image-generation')
+    prompt = f"""
+You are an expert resume analyst.
+Provide only a numeric percentage indicating how well the resume matches the job description for a {job_title} position.
+JOB DESCRIPTION:
+{job_description}
+RESUME:
+{resume_text}
+Format: [numeric percentage only, e.g. 68%] (no other text).
+"""
+    try:
+        response = model.generate_content(prompt)
+        import re
+        match = re.search(r'(\d{1,3})%', response.text)
+        if match:
+            return int(match.group(1))
+        return 0
+    except Exception as e:
+        return 0
 
-# def analyze_resume(resume_text, job_title, job_description):
-#     model = genai.GenerativeModel('gemini-2.0-flash-exp-image-generation')
-#     prompt = f"""
-# Act as an expert resume analyst and career coach. You are analyzing a resume for a "{job_title}" position.
+def get_requirements():
+    job_description = os.getenv('DEFAULT_JOB_DESCRIPTION', 'N/A')
+    model = genai.GenerativeModel('gemini-2.0-flash-exp-image-generation')
+    prompt = f"""
+Extract all technical requirements from the following job description:
+{job_description}
+Return as a JSON array.
+"""
+    try:
+        response = model.generate_content(prompt)
+        requirements = json.loads(response.text)
+        return requirements
+    except Exception as e:
+        return [f"Error: {e}"]
 
-# JOB DESCRIPTION:
-# {job_description}
+def get_previous_scans():
+    # Placeholder: return static or empty list
+    return []
 
-# RESUME:
-# {resume_text}
-
-# Please provide a structured analysis as follows:
-# Please follow the structure exactly and ensure all five sections are included in the response.
-
-
-# 1. **Match Score**  
-# Provide only a numeric percentage indicating how well the resume matches the job description.  
-# Format: `85%` (No other text or explanation).
-
-# 2. **Matching Skills/Keywords**  
-# List point-wise the specific skills or keywords that are present in both the resume and job description.
-
-# 3. **Missing Skills/Keywords**  
-# List point-wise the important skills or keywords from the job description that are missing in the resume.
-
-# 4. **Recommendations for Improvement**  
-# Provide 3 to 5 clear, actionable suggestions to improve this resume for this specific job application.
-
-# 5. **ATS Optimization Score**  
-# Give a score between 0 and 100 indicating how well this resume is optimized for Applicant Tracking Systems (ATS).  
-
-# 6. Justification: Also include 1–2 brief points justifying this score (e.g., keyword usage, formatting, etc.).
-
-# """
-#     try:
-#         response = model.generate_content(prompt)
-#         print("Gemini response:", response.text)
-#         return response.text
-#     except Exception as e:
-#         return f"Error analyzing resume: {e}"
-
-
-
-# Provide a comprehensive analysis of the resume compared to the job requirements. Structure your analysis as follows:
-
-# 1. Match Score: Provide a only percentage match score between the resume and job description no any other text want to percentage score.
-
-# 4. Missing Skills/Keywords: give point vice only Identify specific skills or keywords from the job description that are missing in the resume.
-
-# 4. Matching Skills/Keywords: give point vice only Identify specific skills or keywords from the job description that are matching in the resume.
-
-
-# 2. Key Strengths: List 3-5 strengths in the resume that align well with the job requirements.
-
-# 3. Improvement Areas: List 3-5 specific areas where the resume could be improved to better match the job.
-
-# 4. Missing Skills/Keywords: Identify specific skills or keywords from the job description that are missing in the resume.
-
-# 5. Format and Presentation: Analyze the structure, organization, and presentation of the resume.
-
-# 6. Action Items: Provide 3-5 specific, actionable recommendations to improve the resume for this specific job application.
+def get_keyword_match_score(filename, job_title=None, job_description=None):
+    from utils.pdf_extractor import extract_text_from_pdf
+    with open(filename, 'rb') as f:
+        resume_text = extract_text_from_pdf(f)
+    if job_title is None:
+        job_title = os.getenv('DEFAULT_JOB_TITLE', 'Software Engineer')
+    if job_description is None:
+        job_description = os.getenv('DEFAULT_JOB_DESCRIPTION', 'N/A')
+    model = genai.GenerativeModel('gemini-2.0-flash-exp-image-generation')
+    prompt = f"""
+Compare the JOB DESCRIPTION and the RESUME.
+1. Extract all technical skills, programming languages, libraries, frameworks, tools, and platforms from the JOB DESCRIPTION.
+2. From this list, count how many are present in the RESUME.
+3. Calculate a keyword match score as a percentage: (number of matched keywords / total required keywords) * 100.
+4. Return only the numeric percentage score (e.g., `72%`). Do NOT include any other text.
+JOB DESCRIPTION:
+{job_description}
+RESUME:
+{resume_text}
+"""
+    try:
+        response = model.generate_content(prompt)
+        import re
+        match = re.search(r'(\d{1,3})%', response.text)
+        if match:
+            return int(match.group(1))
+        return 0
+    except Exception as e:
+        return 0

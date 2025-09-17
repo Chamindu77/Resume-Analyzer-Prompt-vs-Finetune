@@ -1,0 +1,78 @@
+.instructions-card {
+  background: #23234a;
+  color: #e0e0e0;
+  padding: 2.5rem 2rem;
+  border-radius: 1.5rem;
+  box-shadow: 0 4px 24px rgba(100, 125, 222, 0.12);
+  /* max-width: 700px; */
+  margin: 2rem auto;
+  font-family: "Inter", Arial, sans-serif;
+}
+.instructions-card h2 {
+  font-size: 2rem;
+  margin-bottom: 2rem;
+  color: #7ed6ff;
+  text-shadow: 0 2px 8px rgba(100, 125, 222, 0.18);
+  font-weight: 700;
+  letter-spacing: 1px;
+  text-align: center;
+}
+.instructions-steps {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  text-align: left;
+}
+.instructions-step {
+  display: flex;
+  align-items: flex-start;
+  gap: 1.2rem;
+}
+.step-number {
+  background: linear-gradient(90deg, #7ed6ff 0%, #647dee 100%);
+  color: #22223b;
+  font-weight: bold;
+  font-size: 1.3rem;
+  border-radius: 50%;
+  width: 2.5rem;
+  height: 2.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 2px 8px rgba(100, 125, 222, 0.12);
+}
+.step-content {
+  flex: 1;
+}
+.step-title {
+  font-weight: 600;
+  color: #7ed6ff;
+  font-size: 1.15rem;
+  margin-bottom: 0.3rem;
+}
+.step-desc {
+  font-size: 1rem;
+  color: #e0e0e0;
+  margin-bottom: 0.5rem;
+}
+.instructions-card ul {
+  margin-top: 0.5rem;
+  margin-bottom: 0.5rem;
+  padding-left: 0.5rem;
+  list-style: none;
+}
+.instructions-card li {
+  margin-bottom: 0.5rem;
+  font-size: 0.98rem;
+  color: #7ed6ff;
+  position: relative;
+  padding-left: 1.6em;
+}
+.instructions-card li::before {
+  content: "\2713";
+  position: absolute;
+  left: 0;
+  color: #7ed6ff;
+  font-size: 1.1em;
+  top: 0.1em;
+}

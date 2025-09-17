@@ -1,0 +1,79 @@
+.analysis-chat-tabs {
+  background: #23234a;
+  border-radius: 1.5em;
+  box-shadow: 0 6px 32px rgba(40, 60, 120, 0.18);
+  padding: 2em 1.5em 1.5em 1.5em;
+  margin-top: 2em;
+  min-width: 320px;
+}
+
+.analysis-chat-tabs .tab-header {
+  display: flex;
+  gap: 2.5em;
+  margin-bottom: 2em;
+  justify-content: center;
+  align-items: flex-end;
+  background: none;
+  border-radius: 0;
+  box-shadow: none;
+  padding: 0;
+  width: 100%;
+  position: relative;
+}
+.analysis-chat-tabs .tab-header button {
+  background: none;
+  color: #cfd8dc;
+  border: none;
+  padding: 0.5em 1.5em 0.2em 1.5em;
+  font-size: 1.13em;
+  font-weight: 700;
+  cursor: pointer;
+  transition: color 0.2s;
+  outline: none;
+  position: relative;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  border-radius: 0;
+  background: none;
+}
+.analysis-chat-tabs .tab-header button .tab-icon {
+  font-size: 1.3em;
+  margin-right: 0.7em;
+  margin-bottom: 0;
+}
+.analysis-chat-tabs .tab-header button.active {
+  color: #fff !important;
+  font-weight: 900;
+  background: linear-gradient(90deg, #3f51b5 60%, #7ed6ff 100%);
+  border-radius: 2em;
+  box-shadow: 0 4px 16px rgba(63, 81, 181, 0.18);
+  outline: none !important;
+  border: none !important;
+  padding: 0.7em 2.5em 0.7em 2.5em;
+  position: relative;
+  z-index: 2;
+}
+
+.analysis-chat-tabs .tab-header button:not(.active):hover {
+  color: #3f51b5;
+  background: #e3f2fd;
+}
+.analysis-chat-tabs .tab-header .tab-indicator {
+  position: absolute;
+  left: 0;
+  bottom: -8px;
+  height: 4px;
+  background: #3f51b5;
+  border-radius: 2px;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  z-index: 1;
+  width: 120px;
+  box-shadow: 0 2px 8px rgba(63, 81, 181, 0.15);
+}
+.analysis-chat-tabs .tab-content {
+  background: #23234a;
+  border-radius: 0 0 1.2em 1.2em;
+  padding: 1.2em 0.7em;
+  box-shadow: 0 2px 8px rgba(100, 125, 222, 0.1);
+}

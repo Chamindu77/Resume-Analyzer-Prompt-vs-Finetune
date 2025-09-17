@@ -1,0 +1,26 @@
+# Node modules
+node_modules/
+
+# Build output
+dist/
+
+# Local env files
+.env
+.env.local
+
+# Log files
+*.log
+
+# Dependency lock
+package-lock.json
+
+# IDE and OS files
+.DS_Store
+Thumbs.db
+
+# Vite cache
+.vite
+
+# Misc
+*.tmp
+*.bak

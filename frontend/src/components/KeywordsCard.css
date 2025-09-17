@@ -1,0 +1,40 @@
+.keywords-card h3 {
+  text-align: left;
+  font-size: 1.4rem;
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+  color: #e0e0e0;
+  padding-left: 2rem;
+}
+.keywords-card {
+  background: #22223b;
+  color: #fff;
+  padding: 1.5rem;
+  border-radius: 1.2rem;
+  margin: 2rem 0;
+  box-shadow: 0 2px 12px rgba(100, 125, 222, 0.08);
+}
+.keywords-section {
+  display: flex;
+  gap: 2rem;
+}
+.keywords-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-top: 0.5rem;
+}
+.keyword.found {
+  background: #d7fbe8;
+  color: #1fa463;
+  border-radius: 1rem;
+  padding: 0.3rem 1rem;
+  font-size: 0.85rem;
+}
+.keyword.missing {
+  background: #fbe3e3;
+  color: #d43a3a;
+  border-radius: 1rem;
+  padding: 0.3rem 1rem;
+  font-size: 0.85rem;
+}

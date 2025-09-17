@@ -1,0 +1,97 @@
+.phi-shadow-gray {
+  position: absolute;
+  left: 50%;
+  top: 135px;
+  transform: translateX(-50%);
+  width: 100px;
+  height: 18px;
+  background: radial-gradient(
+    ellipse at center,
+    rgba(180, 180, 190, 0.32) 0%,
+    rgba(180, 180, 190, 0.08) 80%,
+    transparent 100%
+  );
+  filter: blur(4px);
+  z-index: 0;
+  border-radius: 50%;
+}
+.score-card {
+  background: #22223b;
+  color: #fff;
+  padding: 1rem;
+  border-radius: 1.5rem;
+  margin: 2rem 0;
+  box-shadow: 0 6px 32px rgba(40, 60, 120, 0.18);
+}
+
+.score-card h3 {
+  text-align: left;
+  font-size: 1.4rem;
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+  color: #e0e0e0;
+  padding-left: 2rem;
+}
+.score-desc {
+  font-size: 0.95rem;
+  color: #7ed6ff;
+}
+.score-circles {
+  display: flex;
+  gap: 2.8rem;
+  margin-top: 1.2rem;
+  justify-content: center;
+}
+.phi-chart {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 150px;
+  height: 200px;
+  background: none;
+  position: relative;
+  border-radius: 1.2rem;
+  padding: 0.5rem 0.2rem 0.8rem 0.2rem;
+}
+.phi-shadow {
+  position: absolute;
+  left: 50%;
+  top: 135px;
+  transform: translateX(-50%);
+  width: 100px;
+  height: 24px;
+  background: radial-gradient(
+    ellipse at center,
+    rgba(40, 60, 120, 0.32) 0%,
+    rgba(40, 60, 120, 0.08) 80%,
+    transparent 100%
+  );
+  filter: blur(2px);
+  z-index: 1;
+  border-radius: 50%;
+}
+.phi-chart svg {
+  display: block;
+  /* margin: 0 1rem; */
+  background: none;
+  filter: drop-shadow(0 2px 8px #23234a);
+}
+.phi-label {
+  margin-top: 2.5rem;
+  font-size: 1rem;
+  color: #7ed6ff;
+  font-weight: 600;
+  text-align: center;
+  letter-spacing: 0.5px;
+  text-shadow: 0 2px 8px rgba(100, 125, 222, 0.18);
+}
+.phi-amount {
+  margin-top: 0.2rem;
+  font-size: 1.15rem;
+  color: #fff;
+  font-weight: 700;
+  text-align: center;
+  text-shadow: 0 2px 8px rgba(100, 125, 222, 0.18);
+  letter-spacing: 1px;
+}
